@@ -40,7 +40,18 @@ public class MemberView {
                     System.out.println("[안내] 관리자 계정이 등록되었습니다.");
                 } // if end
             } else if ( option == 2 ){  // 로그인을 선택하면
+                System.out.println("--------- 로그인 ---------");
+                System.out.print("아이디 : ");     String mId = scan.next();
+                System.out.print("비밀번호 : ");    String mPwd = scan.next();
+                int mCode = memberController.getMcode(mId);             // 아이디로부터 회원코드얻기
+                int result = login( mId, mPwd );
+                if ( result == 0 ){         // 로그인에 실패했다면
+                    System.out.println("[경고] 로그인에 실패하였습니다.");
+                }else if ( result == 1 ){   // 사용자 로그인이라면
 
+                }else if ( result == 2 ){   // 관리자 로그인이라면
+                    System.out.println("[안내] 관리자님, 환영합니다.");
+                }
             }
         } // 무한루프 end
     } // func end
@@ -52,6 +63,15 @@ public class MemberView {
         // view로부터 값을 받아 dao에게 전달 후, 그 반환값을 다시 view에게 전달
         int result = memberController.signup( mId, mPwd, mName, mPhone );
 
+        return result;
+    } // func end
+
+    // 로그인 메소드
+    // 메소드명 : login()
+    // 매개변수 : String mId, String mPwd
+    // 반환값 : 0 : 회원가입 실패, 1 : 회원가입 성공(사용자), 2: 회원가입 성공(관리자) -> int
+    public int login( String mId, String mPwd ){
+        int result = memberController.login( mId, mPwd );
         return result;
     } // func end
 } // class end

@@ -42,4 +42,30 @@ public class MemberDao {
         } // if end
         return result;
     } // func end
+
+    // 로그인 메소드
+    // 메소드명 : login()
+    // 매개변수 : String mId, String mPwd
+    // 반환값 : 0 : 회원가입 실패, 1 : 회원가입 성공(사용자), 2: 회원가입 성공(관리자) -> int
+    public int login( String mId, String mPwd ){
+        int result = 0;         // 초기 반환값 설정
+        // 매개변수로 아이디와 비밀번호를 입력받고
+        // 회원 DB에 일치하는 회원이 있다면
+        for ( int i = 0; i < memberDB.size(); i++ ){
+            MemberDto member = memberDB.get(i);         // i번째 회원 변수에 저장
+            if ( member.getmId().equals(mId) && member.getmPwd().equals(mPwd) ){    // i번째 회원의 정보와 입력받은 정보가 같다면
+                if ( mId.equals("admin")){  // 같은데 아이디가 "admin"이면
+                    result = 2;
+                    break;
+                } else {                    // "admin"이 아니라면 -> 일반 사용자라면
+                    result = 1;
+                    break;
+                } // if end
+            } // if end
+        } // for end
+        // 로그인 성공
+        // 일치하는 회원이 없다면
+        // 로그인 실패
+        return result;
+    } // func end
 } // class end

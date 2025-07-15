@@ -38,4 +38,14 @@ public class MemberController {
 
         return result;
     } // func end
+
+    // 로그인 메소드
+    // 메소드명 : login()
+    // 매개변수 : String mId, String mPwd
+    // 반환값 : 0 : 회원가입 실패, 1 : 회원가입 성공(사용자), 2: 회원가입 성공(관리자) -> int
+    public int login( String mId, String mPwd ){
+        // view로부터 입력값을 받아 dao에게 전달 후, 반환값을 다시 view에게 전달
+        int result = memberDao.login( mId , mPwd );
+        return result;
+    } // func end
 } // class end
