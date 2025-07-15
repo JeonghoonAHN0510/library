@@ -14,6 +14,10 @@ public class BookDao {
     // 2) 여러개 게시물(DTO)들을 저장할 리스트 선언
     private ArrayList<BookDto> bookDB = new ArrayList<>();
 
+    public ArrayList<BookDto> returnBookDB (){
+        return bookDB;
+    }
+
     // 도서목록 조회 메소드
     // 메소드명 : bookPrint
     // 매개변수 : X

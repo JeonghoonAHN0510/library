@@ -24,8 +24,8 @@ public class BookView {
         ArrayList<BookDto> bookDB =  bookController.bookPrint();
         for ( int i = 0; i < bookDB.size(); i++){
             BookDto book = bookDB.get(i);
-            System.out.printf("[%d] %s | %s\n", book.getbCode(), book.getbName(), book.getbAuthor());
-            System.out.println("--------------------------");
+            System.out.printf("[%d] 도서명 : %s | 저자 : %s\n", book.getbCode(), book.getbName(), book.getbAuthor());
+            System.out.println("-----------------------------------------");
         } // for end
     } // func end
 
