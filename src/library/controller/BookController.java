@@ -22,4 +22,15 @@ public class BookController {
     public ArrayList<BookDto> bookPrint(){
         return bookDao.bookPrint();
     } // func end
+
+    // 도서등록 메소드
+    // 메소드명 : bookRegis()
+    // 매개변수 : String bName, String bAuthor
+    // 반환값 : true(성공) / false(실패) -> boolean
+    public boolean bookRegis( String bName, String bAuthor ){
+        // view로부터 입력값을 받아 dao에게 전달 후, dao로부터 반환값을 받아 view에게 전달
+        boolean result = bookDao.bookRegis( bName, bAuthor );
+        return result;
+    } // func end
+
 } // class end

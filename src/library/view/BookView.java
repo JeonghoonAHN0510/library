@@ -24,7 +24,18 @@ public class BookView {
         ArrayList<BookDto> bookDB =  bookController.bookPrint();
         for ( int i = 0; i < bookDB.size(); i++){
             BookDto book = bookDB.get(i);
-            System.out.printf("[%d] %s | %s", book.getbCode(), book.getbName(), book.getbAuthor());
+            System.out.printf("[%d] %s | %s\n", book.getbCode(), book.getbName(), book.getbAuthor());
+            System.out.println("--------------------------");
         } // for end
     } // func end
+
+    // 도서등록 메소드
+    // 메소드명 : bookRegis()
+    // 매개변수 : String bName, String bAuthor
+    // 반환값 : true(성공) / false(실패) -> boolean
+    public boolean bookRegis( String bName, String bAuthor ){
+        boolean result = bookController.bookRegis( bName, bAuthor );
+        return result;
+    } // func end
+
 } // class end

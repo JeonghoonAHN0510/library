@@ -16,18 +16,40 @@ public class MemberController {
     // 2) dao 싱글톤 가져오기
     private MemberDao memberDao = MemberDao.getInstance();
 
-    // 로그인정보를 받아서 아이디를 회원코드로 반환  // 매개변수 아이디 // 리턴 int
+    // 로그인 회원코드, 회원이름 변수 선언
+    private static int loginMCode;
+    public static int returnMCode(){
+        return loginMCode;
+    }
+
+    // 로그인 아이디를 받아서 회원코드으로 변환
+    // 매개변수 : String mId
+    // 리턴 : int
     public int getMcode( String mId ) {
-        int result = 0;
         ArrayList<MemberDto> memberList = memberDao.returnMemberDB();
         for (int i = 0; i < memberList.size(); i++){
             if(memberList.get(i).getmId().equals(mId)){
-                result = memberList.get(i).getmCode();
+                loginMCode = memberList.get(i).getmCode();
                 break;
+            }
+        }
+        return loginMCode;
+    }
+    // 로그인 아이디를 받아서 회원이름으로 변환
+    // 매개변수 : String mId
+    // 리턴 : String
+    public String getMname (String mId ){
+        String result = "";
+        ArrayList<MemberDto> memberList = memberDao.returnMemberDB();
+        for ( int i = 0; i < memberList.size(); i++ ){
+            MemberDto member = memberList.get(i);
+            if ( member.getmId().equals(mId)){
+                result = member.getmName();
             }
         }
         return result;
     }
+
 
     // 회원가입 메소드
     // 매개변수 : String mId, String mPwd, String mName, String mPhone
