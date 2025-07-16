@@ -1,7 +1,7 @@
-package library.controller;
+package lilii.library.controller;
 
-import library.model.dao.MemberDao;
-import library.model.dto.MemberDto;
+import lilii.library.model.dao.MemberDao;
+import lilii.library.model.dto.MemberDto;
 
 import java.util.ArrayList;
 
@@ -35,6 +35,20 @@ public class MemberController {
         }
         return loginMCode;
     }
+    // 로그인 아이디를 받아서 회원이름으로 변환
+    // 매개변수 : String mId
+    // 리턴 : String
+    public String getMname (String mId ){
+        String result = "";
+        ArrayList<MemberDto> memberList = memberDao.returnMemberDB();
+        for ( int i = 0; i < memberList.size(); i++ ){
+            MemberDto member = memberList.get(i);
+            if ( member.getmId().equals(mId)){
+                result = member.getmName();
+            }
+        }
+        return result;
+    }
 
 
     // 회원가입 메소드
@@ -47,4 +61,13 @@ public class MemberController {
         return result;
     } // func end
 
+    // 로그인 메소드
+    // 메소드명 : login()
+    // 매개변수 : String mId, String mPwd
+    // 반환값 : 0 : 회원가입 실패, 1 : 회원가입 성공(사용자), 2: 회원가입 성공(관리자) -> int
+    public int login( String mId, String mPwd ){
+        // view로부터 입력값을 받아 dao에게 전달 후, 반환값을 다시 view에게 전달
+        int result = memberDao.login( mId , mPwd );
+        return result;
+    } // func end
 } // class end

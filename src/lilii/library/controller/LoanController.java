@@ -1,6 +1,6 @@
-package library.controller;
+package lilii.library.controller;
 
-import library.model.dao.LoanDao;
+import lilii.library.model.dao.LoanDao;
 
 public class LoanController {
     // 1) 싱글톤
@@ -22,6 +22,15 @@ public class LoanController {
         return result;
     } // func end
 
+    // 도서대출 메소드
+    // 메소드명 : bookLoan()
+    // 매개변수 : int bCode
+    // 반환값 : true(성공)/false(실패) -> boolean
+    public boolean bookLoan( int bCode ){
+        // view로부터 값을 입력받아 dao에게 전달 후, 반환값을 다시 view에게 전달
+        boolean result = loanDao.bookLoan( bCode );
+        return result;
+    } // func end
 
 
 } // class end

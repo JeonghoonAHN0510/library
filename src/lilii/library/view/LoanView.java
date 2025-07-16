@@ -1,6 +1,6 @@
-package library.view;
+package lilii.library.view;
 
-import library.controller.LoanController;
+import lilii.library.controller.LoanController;
 
 public class LoanView {
     // 1) 싱글톤
@@ -21,5 +21,13 @@ public class LoanView {
         return result;
     } // func end
 
+    // 도서대출 메소드
+    // 메소드명 : bookLoan()
+    // 매개변수 : int bCode
+    // 반환값 : true(성공)/false(실패) -> boolean
+    public boolean bookLoan( int bCode ){
+        boolean result = loanController.bookLoan( bCode );
+        return result;
+    } // func end
 
 } // class end

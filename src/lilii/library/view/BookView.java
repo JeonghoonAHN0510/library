@@ -1,7 +1,7 @@
-package library.view;
+package lilii.library.view;
 
-import library.controller.BookController;
-import library.model.dto.BookDto;
+import lilii.library.controller.BookController;
+import lilii.library.model.dto.BookDto;
 
 import java.util.ArrayList;
 
@@ -29,5 +29,13 @@ public class BookView {
         } // for end
     } // func end
 
+    // 도서등록 메소드
+    // 메소드명 : bookRegis()
+    // 매개변수 : String bName, String bAuthor
+    // 반환값 : true(성공) / false(실패) -> boolean
+    public boolean bookRegis( String bName, String bAuthor ){
+        boolean result = bookController.bookRegis( bName, bAuthor );
+        return result;
+    } // func end
 
 } // class end
