@@ -83,4 +83,3 @@ public class LoanDao {
         return true;            // 종료
     } // func end
 } // class end
-

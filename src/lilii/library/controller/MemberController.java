@@ -70,4 +70,12 @@ public class MemberController {
         int result = memberDao.login( mId , mPwd );
         return result;
     } // func end
+
+    // 로그아웃 메소드
+    // 기능설명 : 초기화면으로 이동
+    // 메소드명 : logout()
+    // 매개변수 : X
+    // 반환값 : X
+
+
 } // class end
