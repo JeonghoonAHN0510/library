@@ -93,7 +93,7 @@ public class MemberView {
                                 bookView.bookPrint();
                             }else if ( option4 == 5 ){   // 로그아웃을 선택한다면
                                 System.out.println("[안내] 로그아웃 되었습니다.");
-                                index();
+                                break;
                             }else {
                                 System.out.println("[경고] 해당 메뉴는 관리자만 접근 가능합니다.");
                             } // if end
@@ -145,7 +145,7 @@ public class MemberView {
                                 bookView.bookPrint();
                             }else if ( option2 == 6 ){   // 로그아웃을 선택한다면
                                 System.out.println("[안내] 로그아웃 되었습니다.");
-                                index();
+                                break;
                             } // if end
                         } // 무한루프 end
                     } // if end
