@@ -145,7 +145,7 @@ public class MemberView {
                                 bookView.bookPrint();
                             }else if ( option2 == 6 ){   // 로그아웃을 선택한다면
                                 System.out.println("[안내] 로그아웃 되었습니다.");
-                                break;
+                                break;  // 함수 안에 함수 사용하면 -> 무한루프 빠질 수 있음(index()로 로그아웃하면 안 됨)
                             } // if end
                         } // 무한루프 end
                     } // if end
