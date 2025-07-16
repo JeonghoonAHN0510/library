@@ -17,8 +17,7 @@ public class LoanView {
     // 매개변수 : int bCode
     // 반환값 : true(성공)/false(실패) -> boolean
     public boolean bookReturn ( int bCode ){
-        boolean result = loanController.bookReturn( bCode );
-        return result;
+        return loanController.bookReturn( bCode );
     } // func end
 
     // 도서대출 메소드

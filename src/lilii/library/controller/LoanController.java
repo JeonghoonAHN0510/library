@@ -18,8 +18,7 @@ public class LoanController {
     // 반환값 : true(성공)/false(실패) -> boolean
     public boolean bookReturn ( int bCode ){
         // view로부터 도서코드 입력받아 dao에게 전달 후, 반환값 view로 반환하기
-        boolean result = loanDao.bookReturn( bCode );
-        return result;
+        return loanDao.bookReturn( bCode );
     } // func end
 
     // 도서대출 메소드

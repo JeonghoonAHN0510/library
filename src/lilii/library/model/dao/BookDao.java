@@ -12,7 +12,7 @@ public class BookDao {
         return instance;
     }
     // 2) 여러개 게시물(DTO)들을 저장할 리스트 선언
-    private ArrayList<BookDto> bookDB = new ArrayList<>();
+    private static ArrayList<BookDto> bookDB = new ArrayList<>();
 
     public ArrayList<BookDto> returnBookDB (){
         return bookDB;
