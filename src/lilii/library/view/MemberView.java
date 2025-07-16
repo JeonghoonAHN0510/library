@@ -2,7 +2,9 @@ package lilii.library.view;
 
 import lilii.library.controller.MemberController;
 import lilii.library.model.dao.BookDao;
+import lilii.library.model.dto.LoanDto;
 
+import java.util.ArrayList;
 import java.util.Scanner;
 
 public class MemberView {
@@ -27,7 +29,7 @@ public class MemberView {
         for( ; ; ){
             System.out.println("=========== 도서관리 시스템  ===========");
             System.out.println("        1.회원가입 | 2.로그인");
-            System.out.println("==========================================");
+            System.out.println("=====================================");
             System.out.print("선택 > ");        int option = scan.nextInt();
             if ( option == 1 ){         // 회원가입을 선택하면
                 // 기본적인 출력
@@ -56,10 +58,96 @@ public class MemberView {
                         System.out.println("[경고] 로그인에 실패하였습니다.");
                     }else if ( result == 1 ){   // 사용자 로그인이라면
                         System.out.printf("[안내] %s님, 환영합니다.\n", mName);
-                        userPrint();
+                        for ( ; ; ){
+                            System.out.println("===============================================================");
+                            System.out.println("  1.도서대출 | 2.도서반납 | 3.내대출현황 | 4.도서목록 | 5.로그아웃");
+                            System.out.println("===============================================================");
+                            System.out.print("선택 : ");          int option4 = scan.nextInt();
+                            if ( option4 == 1 ){         // 도서대출을 선택한다면
+                                System.out.println("--------- 도서대출 ---------");
+                                System.out.print("대출할 도서 번호 : ");       int bCode = scan.nextInt();
+                                boolean result6 = loanView.bookLoan(bCode);
+                                if ( result6 ){
+                                    System.out.println("[안내] 도서 대출이 완료되었습니다.");
+                                }else {
+                                    System.out.println("[경고] 도서 대출에 실패하였습니다.");
+                                } // if end
+                            }else if ( option4 == 2 ){   // 도서반납을 선택한다면
+                                System.out.println("--------- 도서반납 ---------");
+                                System.out.print("반납할 도서 번호 : ");       int bCode = scan.nextInt();
+                                boolean result5 = loanView.bookReturn ( bCode );
+                                if ( result5 ){
+                                    System.out.println("[안내] 도서 반납이 완료되었습니다.");
+                                }else {
+                                    System.out.println("[경고] 도서 반납에 실패하였습니다.");
+                                } // if end
+                            }else if ( option4 == 3 ){   // 내대출현황을 선택한다면
+                                System.out.println("--- 나의 대출 현황 ---");
+                                ArrayList<LoanDto> memLoan = LoanView.getInstance().loanPrint( mId );
+                                for ( int i = 0; i < memLoan.size(); i++ ){
+                                    LoanDto loan = memLoan.get(i);
+                                    ArrayList<String> book = BookView.getInstance().getBook(loan.getbCode());
+                                    System.out.printf("[%d] %s | %s | 대출일 : %s\n", i + 1, book.get(0), book.get(1), loan.getLoanDate());
+                                }
+                            }else if ( option4 == 4 ){   // 도서목록을 선택한다면
+                                bookView.bookPrint();
+                            }else if ( option4 == 5 ){   // 로그아웃을 선택한다면
+                                System.out.println("[안내] 로그아웃 되었습니다.");
+                                index();
+                            }else {
+                                System.out.println("[경고] 해당 메뉴는 관리자만 접근 가능합니다.");
+                            } // if end
+                        } // 무한루프 end
                     }else if ( result == 2 ){   // 관리자 로그인이라면
                         System.out.println("[안내] 관리자님, 환영합니다.");
-                        adminPrint();
+                        for ( ; ; ){
+                            System.out.println("===========================================================================");
+                            System.out.println("  1. 도서등록 | 2.도서대출 | 3.도서반납 | 4.내대출현황 | 5.도서목록 | 6.로그아웃");
+                            System.out.println("===========================================================================");
+                            System.out.print("선택 : ");          int option2 = scan.nextInt();
+                            if ( option2 == 1 ){
+                                System.out.println("--------- 도서등록 ---------");
+                                System.out.print("도서명 : ");         String bName = scan.next();
+                                System.out.print("저자 : ");           String bAuthor = scan.next();
+                                boolean result3 = bookView.bookRegis( bName, bAuthor );
+                                if ( result3 ){
+                                    System.out.printf("[안내] '%s' 도서 등록이 성공하였습니다.\n", bName);
+                                }else {
+                                    System.out.println("[경고] 도서 등록에 실패하였습니다.");
+                                } // if end
+                            }else if ( option2 == 2 ){         // 도서대출을 선택한다면
+                                System.out.println("--------- 도서대출 ---------");
+                                System.out.print("대출할 도서 번호 : ");       int bCode = scan.nextInt();
+                                boolean result2 = loanView.bookLoan(bCode);
+                                if ( result2 ){
+                                    System.out.println("[안내] 도서 대출이 완료되었습니다.");
+                                }else {
+                                    System.out.println("[경고] 도서 대출에 실패하였습니다.");
+                                } // if end
+                            }else if ( option2 == 3 ){   // 도서반납을 선택한다면
+                                System.out.println("--------- 도서반납 ---------");
+                                System.out.print("반납할 도서 번호 : ");       int bCode = scan.nextInt();
+                                boolean result1 = loanView.bookReturn ( bCode );
+                                if ( result1 ){
+                                    System.out.println("[안내] 도서 반납이 완료되었습니다.");
+                                }else {
+                                    System.out.println("[경고] 도서 반납에 실패하였습니다.");
+                                } // if end
+                            }else if ( option2 == 4 ){   // 내대출현황을 선택한다면
+                                System.out.println("--- 나의 대출 현황 ---");
+                                ArrayList<LoanDto> memLoan = LoanView.getInstance().loanPrint( mId );
+                                for ( int i = 0; i < memLoan.size(); i++ ){
+                                    LoanDto loan = memLoan.get(i);
+                                    ArrayList<String> book = BookView.getInstance().getBook(loan.getbCode());
+                                    System.out.printf("[%d] %s | %s | 대출일 : %s\n", i + 1, book.get(0), book.get(1), loan.getLoanDate());
+                                }
+                            }else if ( option2 == 5 ){   // 도서목록을 선택한다면
+                                bookView.bookPrint();
+                            }else if ( option2 == 6 ){   // 로그아웃을 선택한다면
+                                System.out.println("[안내] 로그아웃 되었습니다.");
+                                index();
+                            } // if end
+                        } // 무한루프 end
                     } // if end
                 } // if end
             } // if end
@@ -86,86 +174,94 @@ public class MemberView {
     } // func end
 
     // 사용자화면 출력
-    public void userPrint(){
-        for ( ; ; ){
-            System.out.println("===============================================================");
-            System.out.println("  1.도서대출 | 2.도서반납 | 3.내대출현황 | 4.도서목록 | 5.로그아웃");
-            System.out.println("===============================================================");
-            System.out.print("선택 : ");          int option = scan.nextInt();
-            if ( option == 1 ){         // 도서대출을 선택한다면
-                System.out.println("--------- 도서대출 ---------");
-                System.out.print("대출할 도서 번호 : ");       int bCode = scan.nextInt();
-                boolean result = loanView.bookLoan(bCode);
-                if ( result ){
-                    System.out.println("[안내] 도서 대출이 완료되었습니다.");
-                }else {
-                    System.out.println("[경고] 도서 대출에 실패하였습니다.");
-                } // if end
-            }else if ( option == 2 ){   // 도서반납을 선택한다면
-                System.out.println("--------- 도서반납 ---------");
-                System.out.print("반납할 도서 번호 : ");       int bCode = scan.nextInt();
-                boolean result = loanView.bookReturn ( bCode );
-                if ( result ){
-                    System.out.println("[안내] 도서 반납이 완료되었습니다.");
-                }else {
-                    System.out.println("[경고] 도서 반납에 실패하였습니다.");
-                } // if end
-            }else if ( option == 3 ){   // 내대출현황을 선택한다면
-
-            }else if ( option == 4 ){   // 도서목록을 선택한다면
-                bookView.bookPrint();
-            }else if ( option == 5 ){   // 로그아웃을 선택한다면
-
-            }else {
-                System.out.println("[경고] 해당 메뉴는 관리자만 접근 가능합니다.");
-            } // if end
-        } // 무한루프 end
-    } // func end
+//    public void userPrint(){
+//        for ( ; ; ){
+//            System.out.println("===============================================================");
+//            System.out.println("  1.도서대출 | 2.도서반납 | 3.내대출현황 | 4.도서목록 | 5.로그아웃");
+//            System.out.println("===============================================================");
+//            System.out.print("선택 : ");          int option = scan.nextInt();
+//            if ( option == 1 ){         // 도서대출을 선택한다면
+//                System.out.println("--------- 도서대출 ---------");
+//                System.out.print("대출할 도서 번호 : ");       int bCode = scan.nextInt();
+//                boolean result = loanView.bookLoan(bCode);
+//                if ( result ){
+//                    System.out.println("[안내] 도서 대출이 완료되었습니다.");
+//                }else {
+//                    System.out.println("[경고] 도서 대출에 실패하였습니다.");
+//                } // if end
+//            }else if ( option == 2 ){   // 도서반납을 선택한다면
+//                System.out.println("--------- 도서반납 ---------");
+//                System.out.print("반납할 도서 번호 : ");       int bCode = scan.nextInt();
+//                boolean result = loanView.bookReturn ( bCode );
+//                if ( result ){
+//                    System.out.println("[안내] 도서 반납이 완료되었습니다.");
+//                }else {
+//                    System.out.println("[경고] 도서 반납에 실패하였습니다.");
+//                } // if end
+//            }else if ( option == 3 ){   // 내대출현황을 선택한다면
+//                                System.out.println("--- 나의 대출 현황 ---");
+//                                ArrayList<LoanDto> memLoan = LoanView.getInstance().loanPrint( mId );
+//                                for ( int i = 0; i < memLoan.size(); i++ ){
+//                                    LoanDto loan = memLoan.get(i);
+//                                    ArrayList<String> book = BookView.getInstance().getBook(loan.getbCode());
+//                                    System.out.printf("[%d] %s | %s | 대출일 : %s\n", i + 1, book.get(0), book.get(1), loan.getLoanDate());
+//                                }
+//            }else if ( option == 4 ){   // 도서목록을 선택한다면
+//                bookView.bookPrint();
+//            }else if ( option == 5 ){   // 로그아웃을 선택한다면
+//
+//            }else {
+//                System.out.println("[경고] 해당 메뉴는 관리자만 접근 가능합니다.");
+//            } // if end
+//        } // 무한루프 end
+//    } // func end
 
     // 관리자화면 출력
-    public void adminPrint(){
-        for ( ; ; ){
-            System.out.println("===========================================================================");
-            System.out.println("  1. 도서등록 | 2.도서대출 | 3.도서반납 | 4.내대출현황 | 5.도서목록 | 6.로그아웃");
-            System.out.println("===========================================================================");
-            System.out.print("선택 : ");          int option = scan.nextInt();
-            if ( option == 1 ){
-                System.out.println("--------- 도서등록 ---------");
-                System.out.print("도서명 : ");         String bName = scan.next();
-                System.out.print("저자 : ");           String bAuthor = scan.next();
-                boolean result = bookView.bookRegis( bName, bAuthor );
-                if ( result ){
-                    System.out.printf("[안내] '%s' 도서 등록이 성공하였습니다.\n", bName);
-                }else {
-                    System.out.println("[경고] 도서 등록에 실패하였습니다.");
-                } // if end
-            }else if ( option == 2 ){         // 도서대출을 선택한다면
-                System.out.println("--------- 도서대출 ---------");
-                System.out.print("대출할 도서 번호 : ");       int bCode = scan.nextInt();
-                boolean result = loanView.bookLoan(bCode);
-                if ( result ){
-                    System.out.println("[안내] 도서 대출이 완료되었습니다.");
-                }else {
-                    System.out.println("[경고] 도서 대출에 실패하였습니다.");
-                } // if end
-            }else if ( option == 3 ){   // 도서반납을 선택한다면
-                System.out.println("--------- 도서반납 ---------");
-                System.out.print("반납할 도서 번호 : ");       int bCode = scan.nextInt();
-                boolean result = loanView.bookReturn ( bCode );
-                if ( result ){
-                    System.out.println("[안내] 도서 반납이 완료되었습니다.");
-                }else {
-                    System.out.println("[경고] 도서 반납에 실패하였습니다.");
-                } // if end
-            }else if ( option == 4 ){   // 내대출현황을 선택한다면
+//    public void adminPrint(){
+//        for ( ; ; ){
+//            System.out.println("===========================================================================");
+//            System.out.println("  1. 도서등록 | 2.도서대출 | 3.도서반납 | 4.내대출현황 | 5.도서목록 | 6.로그아웃");
+//            System.out.println("===========================================================================");
+//            System.out.print("선택 : ");          int option = scan.nextInt();
+//            if ( option == 1 ){
+//                System.out.println("--------- 도서등록 ---------");
+//                System.out.print("도서명 : ");         String bName = scan.next();
+//                System.out.print("저자 : ");           String bAuthor = scan.next();
+//                boolean result = bookView.bookRegis( bName, bAuthor );
+//                if ( result ){
+//                    System.out.printf("[안내] '%s' 도서 등록이 성공하였습니다.\n", bName);
+//                }else {
+//                    System.out.println("[경고] 도서 등록에 실패하였습니다.");
+//                } // if end
+//            }else if ( option == 2 ){         // 도서대출을 선택한다면
+//                System.out.println("--------- 도서대출 ---------");
+//                System.out.print("대출할 도서 번호 : ");       int bCode = scan.nextInt();
+//                boolean result = loanView.bookLoan(bCode);
+//                if ( result ){
+//                    System.out.println("[안내] 도서 대출이 완료되었습니다.");
+//                }else {
+//                    System.out.println("[경고] 도서 대출에 실패하였습니다.");
+//                } // if end
+//            }else if ( option == 3 ){   // 도서반납을 선택한다면
+//                System.out.println("--------- 도서반납 ---------");
+//                System.out.print("반납할 도서 번호 : ");       int bCode = scan.nextInt();
+//                boolean result = loanView.bookReturn ( bCode );
+//                if ( result ){
+//                    System.out.println("[안내] 도서 반납이 완료되었습니다.");
+//                }else {
+//                    System.out.println("[경고] 도서 반납에 실패하였습니다.");
+//                } // if end
+//            }else if ( option == 4 ){   // 내대출현황을 선택한다면
+//                LoanView.getInstance().loanPrint( mId );
+//            }else if ( option == 5 ){   // 도서목록을 선택한다면
+//                bookView.bookPrint();
+//            }else if ( option == 6 ){   // 로그아웃을 선택한다면
+//                index();
+//            }else {
+//                System.out.println("[경고] 해당 메뉴는 관리자만 접근 가능합니다.");
+//            } // if end
+//        } // 무한루프 end
+//    } // func end
 
-            }else if ( option == 5 ){   // 도서목록을 선택한다면
-                bookView.bookPrint();
-            }else if ( option == 6 ){   // 로그아웃을 선택한다면
 
-            }else {
-                System.out.println("[경고] 해당 메뉴는 관리자만 접근 가능합니다.");
-            } // if end
-        } // 무한루프 end
-    } // func end
 } // class end

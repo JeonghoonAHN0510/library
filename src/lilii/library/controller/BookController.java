@@ -33,4 +33,10 @@ public class BookController {
         return result;
     } // func end
 
+
+
+    public ArrayList<String> getBook ( int bCode ){
+        return bookDao.getBook(bCode);
+    }
+
 } // class end

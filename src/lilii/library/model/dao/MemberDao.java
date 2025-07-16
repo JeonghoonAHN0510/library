@@ -29,16 +29,11 @@ public class MemberDao {
         MemberDto memberDto = new MemberDto( mCode, mId, mPwd, mName, mPhone );
         // 생성한 객체 ArrayList에 추가
         memberDB.add( memberDto );
-        // 유효성 검사
-        if ( mId != null && mPwd != null && mName != null && mPhone != null ){  // null값이 없으면
-            // 관리자 회원가입 찾기
-            if ( mId.equals("admin")){  // 아이디가 admin이면
-                result = 2;             // 반환값 2로 수정
-            } else {                    // admin이 아니면
-                result = 1;             // 반환값 1로 수정
-            } // if end
-        } else {    // null값이 하나라도 있으면
-            result = 0;
+        // 관리자 회원가입 찾기
+        if ( mId.equals("admin")){  // 아이디가 admin이면
+            result = 2;             // 반환값 2로 수정
+        } else {                    // admin이 아니면
+            result = 1;             // 반환값 1로 수정
         } // if end
         return result;
     } // func end

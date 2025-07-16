@@ -1,6 +1,9 @@
 package lilii.library.controller;
 
 import lilii.library.model.dao.LoanDao;
+import lilii.library.model.dto.LoanDto;
+
+import java.util.ArrayList;
 
 public class LoanController {
     // 1) 싱글톤
@@ -31,5 +34,8 @@ public class LoanController {
         return result;
     } // func end
 
+    public ArrayList<LoanDto> loanPrint( String mId ){
+        return loanDao.loanPrint( mId );
+    }
 
 } // class end

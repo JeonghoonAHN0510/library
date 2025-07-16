@@ -1,6 +1,9 @@
 package lilii.library.view;
 
 import lilii.library.controller.LoanController;
+import lilii.library.model.dto.LoanDto;
+
+import java.util.ArrayList;
 
 public class LoanView {
     // 1) 싱글톤
@@ -28,5 +31,9 @@ public class LoanView {
         boolean result = loanController.bookLoan( bCode );
         return result;
     } // func end
+
+    public ArrayList<LoanDto> loanPrint(String mId ){
+        return loanController.loanPrint( mId );
+    }
 
 } // class end

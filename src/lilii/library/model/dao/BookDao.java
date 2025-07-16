@@ -44,4 +44,17 @@ public class BookDao {
 
         return result;
     } // func end
+
+    // bCode로 제목과 저자 뽑는 메소드
+    public ArrayList<String> getBook ( int bCode ){
+        ArrayList<String> book = new ArrayList<>();
+        for ( int i = 0; i < bookDB.size(); i++){
+            if ( bookDB.get(i).getbCode() == bCode){
+                book.add( bookDB.get(i).getbName() );
+                book.add( bookDB.get(i).getbAuthor() );
+            }
+        }
+        return book;
+    }
+
 } // class end

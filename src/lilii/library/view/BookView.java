@@ -22,9 +22,9 @@ public class BookView {
     // 반환값 : X
     public void bookPrint(){
         ArrayList<BookDto> bookDB =  bookController.bookPrint();
+        System.out.println("-----------------------------------------");
         for ( int i = 0; i < bookDB.size(); i++){
             BookDto book = bookDB.get(i);
-            System.out.println("-----------------------------------------");
             System.out.printf("[%d] 도서명 : %s | 저자 : %s\n", book.getbCode(), book.getbName(), book.getbAuthor());
             System.out.println("-----------------------------------------");
         } // for end
@@ -38,5 +38,10 @@ public class BookView {
         boolean result = bookController.bookRegis( bName, bAuthor );
         return result;
     } // func end
+
+
+    public ArrayList<String> getBook ( int bCode ){
+        return bookController.getBook(bCode);
+    }
 
 } // class end
